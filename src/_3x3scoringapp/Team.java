@@ -2,10 +2,6 @@ package _3x3scoringapp;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author alchermd
- */
 public class Team implements Observable {
     private final int INSIDE_GOAL = 1;
     private final int OUTSIDE_GOAL = 2;
@@ -20,6 +16,28 @@ public class Team implements Observable {
     public Team(String name) {
         this.name = name;
     }
+    
+    
+    @Override
+    public void addObserver(Observer o) {
+        subscribers.add(o);
+    }
+
+    @Override
+    public void removeObserver(Observer o) {
+        subscribers.remove(o);
+    }
+
+    @Override
+    public void notifyObserver() {
+        for (Observer o : subscribers) {
+            o.update(name, score, fouls);
+        }
+    }
+    
+    // The code below smells as well.
+    // notifyObserver() is called 4 times.
+    // Any way to clean this up?
     
     public void scoreInside() {
         score += INSIDE_GOAL;
@@ -41,20 +59,4 @@ public class Team implements Observable {
         notifyObserver();
     }
 
-    @Override
-    public void addObserver(Observer o) {
-        subscribers.add(o);
-    }
-
-    @Override
-    public void removeObserver(Observer o) {
-        subscribers.remove(o);
-    }
-
-    @Override
-    public void notifyObserver() {
-        for (Observer o : subscribers) {
-            o.update(name, score, fouls);
-        }
-    }
 }

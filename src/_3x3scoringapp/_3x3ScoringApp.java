@@ -1,18 +1,10 @@
 package _3x3scoringapp;
 
-/**
- *
- * @author alchermd
- */
 public class _3x3ScoringApp {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         Game game = new Game();
         game.start();
-        
         
         // For demonstration purposes only.
         // With a UI to work with, these methods

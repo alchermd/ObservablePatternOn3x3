@@ -10,15 +10,28 @@ public class Game implements Observer {
         awayTeam = new Team("AWAY");
     }
     
+    /**
+     * Putting that shiny Observer pattern to use.
+     * Should this be moved to the constructor?
+     * 
+     */
     public void start() {
-        // Let's put that shiny new design pattern to use!
         homeTeam.addObserver(this);
         awayTeam.addObserver(this);
         
-        // This is where I bind UI elements.
+        // This is also where I bind UI elements.
     }
 
 
+    /**
+     * With a proper GUI, this method hooks up with UI
+     * elements and updates them on special events such
+     * as a team going penalty or a team winning the match.
+     * 
+     * @param name
+     * @param score
+     * @param fouls 
+     */
     @Override
     public void update(String name, int score, int fouls) {
         if (score >= WINNING_SCORE) {
@@ -27,6 +40,9 @@ public class Game implements Observer {
             System.out.printf("%s is in penalty with %d fouls\n", name, fouls);
         }
     }
+    
+    // The code below kinda smells coz of the repetition.
+    // Any cleaner way to do this?
     
     public void awayScoreInside() {
         awayTeam.scoreInside();
